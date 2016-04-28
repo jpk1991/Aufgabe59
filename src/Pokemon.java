@@ -2,7 +2,7 @@
  * Class to define Pokemonobject for Double-linked-list
  * @author jan
  */
-public class Pokemon {
+public class Pokemon implements Comparable<Pokemon>{
     private int nr;
     private String name;
     private String type1;
@@ -261,6 +261,11 @@ public class Pokemon {
         nr, name, type1, type2, total, hp, attack, defence, spAtk, spDef, speed);
     }
     */
+
+    public int compareTo(Pokemon pokemon){
+        return this.getNr() < pokemon.getNr() ? -1 : this.getNr() > pokemon.getNr() ? 1 : 0;
+    }
+
     public String toString(){
         return nr + " | " + name + " | " + type1 + " | " + type2 + " | " + total + " | " + hp + " | " + attack + " | " + defence + " | "
                 + spAtk + " | " + spDef + " | " + speed;

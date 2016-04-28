@@ -3,17 +3,32 @@
  * @author jan
  */
 public class DoubleLinkedList implements List {
-    DoubleLinkedList next;
-    DoubleLinkedList previous;
+    private Pokemon data;
+    private DoubleLinkedList next;
+    private DoubleLinkedList previous;
+
     /**
      * Create new empty double linked list
      *
      */
     public DoubleLinkedList(){
-        DoubleLinkedList pokemon = null;
-        DoubleLinkedList previous = null;
-        DoubleLinkedList next = null;
+        data = null;
+        next = null;
+        previous = null;
     }
+
+    public Pokemon getPokemon(){
+        return data;
+    }
+
+    public DoubleLinkedList getNext(){
+        return next;
+    }
+
+    public DoubleLinkedList getPrevious(){
+        return previous;
+    }
+
     @Override
     public boolean isEmpty() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -35,16 +50,19 @@ public class DoubleLinkedList implements List {
         if (isEmpty()){
             return null;
         } else
-            return pokemon.next;
+            return next.data;
     }
 
     @Override
     public void insert(Pokemon p) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        DoubleLinkedList l = new DoubleLinkedList();
-        l.pokemon = p;
-        l.next = next;
-        next = l;
+        if (isEmpty()) {
+            DoubleLinkedList l = new DoubleLinkedList();
+            l.data = p;
+            l.next = next;
+            next = l;
+        } else
+            getNext().insert(p);
     }
 
     @Override
