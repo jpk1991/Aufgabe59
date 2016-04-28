@@ -56,10 +56,11 @@ public class DoubleLinkedList implements List {
     @Override
     public void insert(Pokemon p) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if (isEmpty()) {
+        if (isEmpty() || p.compareTo(getNext().getPokemon()) <= 0) {
             DoubleLinkedList l = new DoubleLinkedList();
             l.data = p;
             l.next = next;
+            l.previous = this;
             next = l;
         } else
             getNext().insert(p);
@@ -68,7 +69,7 @@ public class DoubleLinkedList implements List {
     @Override
     public void delete(Pokemon p) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        DoubleLinkedList l = find(p);
+        DoubleLinkedList l; //= find(p);
         if (l != null) {
             l.next = l.next.next;
         }
