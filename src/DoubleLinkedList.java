@@ -1,8 +1,13 @@
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  *
  * @author jan
  */
-public class DoubleLinkedList implements List {
+class DoubleLinkedList implements List {
     private Pokemon data;
     private DoubleLinkedList next;
     private DoubleLinkedList previous;
@@ -11,17 +16,17 @@ public class DoubleLinkedList implements List {
      * Create new empty double linked list
      *
      */
-    public DoubleLinkedList(){
+    private DoubleLinkedList(){
         data = null;
         next = null;
         previous = null;
     }
 
-    public Pokemon getPokemon(){
+    private Pokemon getPokemon(){
         return data;
     }
 
-    public DoubleLinkedList getNext(){
+    private DoubleLinkedList getNext(){
         return next;
     }
 
@@ -31,13 +36,11 @@ public class DoubleLinkedList implements List {
 
     @Override
     public boolean isEmpty() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return next == null;
     }
 
     @Override
     public int length() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (isEmpty()){
             return 0;
         } else
@@ -46,7 +49,6 @@ public class DoubleLinkedList implements List {
 
     @Override
     public Pokemon firstPokemon() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (isEmpty()){
             return null;
         } else
@@ -55,7 +57,6 @@ public class DoubleLinkedList implements List {
 
     @Override
     public void insert(Pokemon p) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (isEmpty() || p.compareTo(getNext().getPokemon()) <= 0) {
             DoubleLinkedList l = new DoubleLinkedList();
             l.data = p;
@@ -66,12 +67,30 @@ public class DoubleLinkedList implements List {
             getNext().insert(p);
     }
 
+    private DoubleLinkedList find(Pokemon p) {
+        if (isEmpty()){
+            return null;
+        } else if(firstPokemon().equals(p)) {
+            return this;
+        } else{
+            return next.find(p);
+        }
+    }
+
     @Override
     public void delete(Pokemon p) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        DoubleLinkedList l; //= find(p);
+        DoubleLinkedList l = find(p);
         if (l != null) {
             l.next = l.next.next;
+            l.next.previous = l;
+        }
+    }
+
+    public void readCsv() throws IOException {
+        BufferedReader br = Files.newBufferedReader(Paths.get("Pokedex.csv"));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+
         }
     }
 }
